@@ -33,11 +33,6 @@ from nlp.medicine_parser import extract_medicines
 from models.adherence_model import predict_adherence
 
 # -----------------------------
-# Voice Reminder
-# -----------------------------
-from reminder.voice import speak_reminder
-
-# -----------------------------
 # Flask App
 # -----------------------------
 app = Flask(__name__)
@@ -45,7 +40,12 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.secret_key = SECRET_KEY
 
+# Create upload folder automatically
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Create database tables
 create_table()
+
 
 # ==========================================================
 # HOME
@@ -64,13 +64,9 @@ def home():
 def dashboard():
 
     total = get_total_medicines()
-
     high = get_high_adherence()
-
     low = get_low_adherence()
-
     adherence = get_adherence_percentage()
-
     chart_data = get_recent_predictions()
 
     return render_template(
@@ -107,6 +103,7 @@ def predict():
     if file.filename == "":
         return redirect(url_for("upload"))
 
+
     image_path = os.path.join(
         app.config["UPLOAD_FOLDER"],
         file.filename
@@ -114,14 +111,20 @@ def predict():
 
     file.save(image_path)
 
-    # -------------------------------------
+
+    # -----------------------------
     # OCR
-    # -------------------------------------
+    # -----------------------------
 
     text = extract_text(image_path)
 
     print("OCR TEXT:")
     print(text)
+
+
+    # -----------------------------
+    # NLP Medicine Extraction
+    # -----------------------------
 
     medicines = extract_medicines(text)
 
@@ -129,9 +132,10 @@ def predict():
 
     medicines_count = len(medicines)
 
-    # -------------------------------------
+
+    # -----------------------------
     # Patient Information
-    # -------------------------------------
+    # -----------------------------
 
     age = int(request.form["age"])
 
@@ -149,24 +153,34 @@ def predict():
 
     reminder_time = request.form["reminder_time"]
 
-    # -------------------------------------
+
+    # -----------------------------
     # ML Prediction
-    # -------------------------------------
+    # -----------------------------
 
     prediction, probability = predict_adherence(
+
         age=age,
+
         gender=gender,
+
         chronic_disease=chronic,
+
         medicines_count=medicines_count,
+
         doses_per_day=doses,
+
         treatment_days=treatment_days,
+
         previous_missed_doses=missed,
+
         reminder_used=reminder_used
     )
 
-    # -------------------------------------
-    # Save Medicines
-    # -------------------------------------
+
+    # -----------------------------
+    # Save Data
+    # -----------------------------
 
     for medicine in medicines:
 
@@ -176,24 +190,25 @@ def predict():
             prediction
         )
 
+
         save_reminder(
             medicine,
             reminder_time
         )
 
-    # -------------------------------------
-    # Voice
-    # -------------------------------------
 
-    if medicines:
+    # -----------------------------
+    # Voice Reminder
+    # Disabled for Render
+    # -----------------------------
 
-        speak_reminder(
-            f"Please remember to take {medicines[0]}"
-        )
+    # Render does not support system audio
+    # Use browser voice or notification service later
 
-    # -------------------------------------
+
+    # -----------------------------
     # Result
-    # -------------------------------------
+    # -----------------------------
 
     return render_template(
 
@@ -222,8 +237,8 @@ def predict():
         treatment_days=treatment_days,
 
         missed=missed
-
     )
+
 
 
 # ==========================================================
@@ -232,7 +247,9 @@ def predict():
 
 @app.route("/reminder")
 def reminder():
+
     return render_template("reminder.html")
+
 
 
 # ==========================================================
@@ -241,12 +258,18 @@ def reminder():
 
 @app.route("/success")
 def success():
+
     return render_template("success.html")
 
 
+
 # ==========================================================
-# Run
+# Run Flask Server
 # ==========================================================
 
 if __name__ == "__main__":
-    app.run(debug=True)
+
+    app.run(
+        host="0.0.0.0",
+        port=5000
+    )
