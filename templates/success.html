@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reminder Saved</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            background:linear-gradient(135deg,#0ea5e9,#2563eb);
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            min-height:100vh;
+
+        }
+
+        .card{
+
+            width:550px;
+
+            background:white;
+
+            padding:40px;
+
+            border-radius:20px;
+
+            text-align:center;
+
+            box-shadow:0 15px 35px rgba(0,0,0,.2);
+
+            animation:fade .6s;
+
+        }
+
+        @keyframes fade{
+
+            from{
+
+                opacity:0;
+
+                transform:translateY(30px);
+
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:translateY(0);
+
+            }
+
+        }
+
+        .icon{
+
+            font-size:80px;
+
+            color:#22c55e;
+
+            margin-bottom:20px;
+
+        }
+
+        h1{
+
+            color:#16a34a;
+
+            margin-bottom:15px;
+
+        }
+
+        p{
+
+            color:#555;
+
+            margin:10px 0;
+
+            font-size:18px;
+
+        }
+
+        .info{
+
+            margin-top:25px;
+
+            background:#f8fafc;
+
+            border-radius:12px;
+
+            padding:20px;
+
+            text-align:left;
+
+        }
+
+        .info p{
+
+            margin:12px 0;
+
+        }
+
+        .buttons{
+
+            margin-top:30px;
+
+            display:flex;
+
+            gap:15px;
+
+        }
+
+        .btn{
+
+            flex:1;
+
+            text-decoration:none;
+
+            padding:14px;
+
+            border-radius:10px;
+
+            color:white;
+
+            font-weight:600;
+
+            text-align:center;
+
+            transition:.3s;
+
+        }
+
+        .home{
+
+            background:#2563eb;
+
+        }
+
+        .upload{
+
+            background:#10b981;
+
+        }
+
+        .dashboard{
+
+            background:#7c3aed;
+
+        }
+
+        .btn:hover{
+
+            transform:translateY(-3px);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="icon">
+
+<i class="fa-solid fa-circle-check"></i>
+
+</div>
+
+<h1>Reminder Saved Successfully!</h1>
+
+<p>Your medicine reminder has been scheduled.</p>
+
+<div class="info">
+
+<p>
+
+<strong>Medicine:</strong>
+
+{{ medicine }}
+
+</p>
+
+<p>
+
+<strong>Reminder Time:</strong>
+
+{{ reminder_time }}
+
+</p>
+
+</div>
+
+<div class="buttons">
+
+<a href="/" class="btn home">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="/upload" class="btn upload">
+
+<i class="fa-solid fa-upload"></i>
+
+New Prescription
+
+</a>
+
+<a href="/dashboard" class="btn dashboard">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

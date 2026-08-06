@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medicine Analysis Result</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:#eef5ff;
+
+    padding:40px;
+
+}
+
+.container{
+
+    max-width:1300px;
+
+    margin:auto;
+
+}
+
+.title{
+
+    text-align:center;
+
+    color:#2563eb;
+
+    margin-bottom:35px;
+
+}
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:30px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+    color:#2563eb;
+
+    margin-bottom:20px;
+
+}
+
+.image{
+
+    width:100%;
+
+    border-radius:15px;
+
+    border:2px solid #ddd;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:15px;
+
+}
+
+table th{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:12px;
+
+}
+
+table td{
+
+    padding:12px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.textbox{
+
+    margin-top:20px;
+
+    background:#f7fafc;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    height:220px;
+
+    overflow:auto;
+
+    white-space:pre-wrap;
+
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.box{
+
+    background:#f9fbff;
+
+    padding:20px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+}
+
+.box h1{
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+.prediction{
+
+    margin-top:30px;
+
+    background:#ecfdf5;
+
+    border-left:6px solid #10b981;
+
+    padding:25px;
+
+    border-radius:15px;
+
+}
+
+.prediction h2{
+
+    color:#16a34a;
+
+}
+
+.prediction h3{
+
+    margin-top:15px;
+
+}
+
+.buttons{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+.btn{
+
+    text-decoration:none;
+
+    padding:15px;
+
+    color:white;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.upload{
+
+    background:#2563eb;
+
+}
+
+.dashboard{
+
+    background:#7c3aed;
+
+}
+
+.voice{
+
+    background:#10b981;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+@media(max-width:900px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.buttons{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">
+
+<i class="fa-solid fa-heart-pulse"></i>
+
+Medicine Reminder AI
+
+</h1>
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-file-prescription"></i>
+
+Uploaded Prescription
+
+</h2>
+
+<img
+class="image"
+src="{{ url_for('static', filename='uploads/' + image) }}">
+
+<div class="textbox">
+
+<b>OCR Extracted Text</b>
+
+<hr><br>
+
+{{ text }}
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-pills"></i>
+
+Detected Medicines
+
+</h2>
+
+<table>
+
+<tr>
+
+<th>#</th>
+
+<th>Medicine Name</th>
+
+</tr>
+
+{% if medicines %}
+
+{% for medicine in medicines %}
+
+<tr>
+
+<td>{{ loop.index }}</td>
+
+<td>{{ medicine }}</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="2">
+
+No medicines detected.
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</table>
+
+<div class="stats">
+
+<div class="box">
+
+<h1>{{ medicines|length }}</h1>
+
+<p>Total Medicines</p>
+
+</div>
+
+<div class="box">
+
+<h1>{{ probability }}%</h1>
+
+<p>Confidence</p>
+
+</div>
+
+<div class="box">
+
+<h1>{{ prediction }}</h1>
+
+<p>Prediction</p>
+
+</div>
+
+</div>
+
+<div class="prediction">
+
+<h2>
+
+<i class="fa-solid fa-brain"></i>
+
+Medicine Adherence Prediction
+
+</h2>
+
+<h3>
+
+{{ prediction }}
+
+</h3>
+
+<br>
+
+<p>
+
+Confidence Score :
+
+<b>{{ probability }}%</b>
+
+</p>
+
+<br>
+
+{% if prediction == "High Adherence" %}
+
+<p style="color:green;">
+
+✔ Patient is likely to follow medication properly.
+
+</p>
+
+{% else %}
+
+<p style="color:red;">
+
+⚠ Patient may miss doses.
+
+Voice reminders are recommended.
+
+</p>
+
+{% endif %}
+
+</div>
+
+<div class="buttons">
+
+<a
+href="/upload"
+class="btn upload">
+
+<i class="fa-solid fa-upload"></i>
+
+Upload Again
+
+</a>
+
+<a
+href="/dashboard"
+class="btn dashboard">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Dashboard
+
+</a>
+
+<button
+class="btn voice"
+onclick="speakReminder()">
+
+<i class="fa-solid fa-volume-high"></i>
+
+Voice Reminder
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function speakReminder(){
+
+let message="Hello. Your medicine adherence prediction is {{ prediction }}. Please take your medicines on time and follow your doctor's prescription.";
+
+let speech=new SpeechSynthesisUtterance(message);
+
+speech.rate=1;
+
+speech.pitch=1;
+
+speech.volume=1;
+
+window.speechSynthesis.speak(speech);
+
+}
+
+</script>
+
+</body>
+
+</html>

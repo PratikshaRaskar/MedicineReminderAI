@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set Reminder</title>
+</head>
+
+<body>
+
+<h2>Medicine Reminder</h2>
+
+<form action="/save_reminder" method="POST">
+
+<label>Medicine</label>
+
+<select name="medicine">
+
+{% for medicine in medicines %}
+
+<option>{{ medicine }}</option>
+
+{% endfor %}
+
+</select>
+
+<br><br>
+
+<label>Reminder Time</label>
+
+<input
+type="time"
+name="time"
+required>
+
+<br><br>
+
+<button type="submit">
+
+Save Reminder
+
+</button>
+
+</form>
+
+</body>
+
+</html>
