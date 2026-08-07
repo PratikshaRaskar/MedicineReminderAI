@@ -72,14 +72,6 @@ python app.py
 
 ---
 
-# AI-Based Medicine Reminder & Prescription Reader
-
-## Live Demo
-🚀 https://medicinereminderai-production.up.railway.app/
-
-## GitHub Repository
-https://github.com/PratikshaRaskar/MedicineReminderAI
-
 ## 👩‍💻 Author
 
 Pratiksha Raskar
