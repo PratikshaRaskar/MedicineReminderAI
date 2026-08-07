@@ -73,7 +73,7 @@ python app.py
 ![Home](screenshots/home.png)
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ### Upload
 ![Upload](screenshots/upload.png)
