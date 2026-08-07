@@ -1,7 +1,7 @@
 # 💊 AI-Based Medicine Adherence Prediction & Voice Reminder
 
 ## Live Demo
-🚀 https://medicinereminderai-production.up.railway.app/
+https://medicinereminderai-production.up.railway.app/
 
 
 ## 📌 Overview
