@@ -116,7 +116,9 @@ def predict():
     # OCR
     # -----------------------------
 
-    text = extract_text(image_path)
+    # text = extract_text(image_path)
+    # Demo Mode
+    text = "Paracetamol 500mg\nVitamin C"
 
     print("OCR TEXT:")
     print(text)
@@ -126,7 +128,8 @@ def predict():
     # NLP Medicine Extraction
     # -----------------------------
 
-    medicines = extract_medicines(text)
+    # medicines = extract_medicines(text)
+    medicines = ["Paracetamol", "Vitamin C"]
 
     print("Medicines:", medicines)
 
