@@ -1,5 +1,11 @@
 # 💊 AI-Based Medicine Adherence Prediction & Voice Reminder
 
+## Live Demo
+🚀 https://medicinereminderai-production.up.railway.app/
+
+## GitHub Repository
+https://github.com/PratikshaRaskar/MedicineReminderAI
+
 ## 📌 Overview
 
 This project predicts medicine adherence using Machine Learning and provides an intelligent medicine reminder system with OCR-based prescription reading.
