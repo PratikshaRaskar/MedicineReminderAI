@@ -69,7 +69,17 @@ python app.py
 
 ## 📸 Screenshots
 
-(Add screenshots here)
+## Home Page
+![Home](screenshots/home.png)
+
+## Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+## Upload Page
+![Upload](screenshots/upload.png)
+
+## Prediction Result
+![Result](screenshots/result.png)
 
 ---
 
